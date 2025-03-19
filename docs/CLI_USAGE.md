@@ -53,9 +53,11 @@ We provide <a href="https://github.com/Stability-AI/stable-virtual-camera/releas
 └── scene_3
 ```
 
+You can specify which scene to run by passing in `--data_items scene_1 scene_2` to run, for example, `scene_1` and `scene_2`.
+
 ### Recommended Usage
 
-- `img2img` and `img2vid` are recommended to be used for evaluation and benchmarking. These two tasks are used for the quantitative evalution throught the <a href="http://arxiv.org/abs/2503.14489">paper</a>. The data is converted from academic datasets so the groundtruth target views are available for metric computation. Check the [`benchmark`](../benchmark/) folder for detailed splits we organize to benchmark different NVS models.
+- `img2img` and `img2vid` are recommended to be used for evaluation and benchmarking. These two tasks are used for the quantitative evalution in our <a href="http://arxiv.org/abs/2503.14489">paper</a>. The data is converted from academic datasets so the groundtruth target views are available for metric computation. Check the [`benchmark`](../benchmark/) folder for detailed splits we organize to benchmark different NVS models.
 - `img2vid` requries both the input and target views to be sorted, which is usually not guaranteed in general usage.
 - `img2trajvid_s-prob` is for general usage but only for single-view regime and fixed preset camera control.
 - `img2trajvid` is the task designed for general usage since it does not need the ordering of the input views. This is the task used in the gradio demo.
@@ -77,6 +79,17 @@ python demo.py \
 - In single-view regime for the RealEstate10K dataset, we find increasing `cfg` is helpful: we additionally set `--cfg 6.0` (`cfg` is `2.0` by default).
 - For the evaluation in semi-dense-view regime (i.e., DL3DV-140 and Tanks and Temples dataset) with `32` input views, we zero-shot extend `T` to fit all input and target views in one forward. Specifically, we set `--T 90` for the DL3DV-140 dataset and `--T 80` for the Tanks and Temples dataset.
 - For the evaluation on ViewCrafter split (including the RealEastate10K, CO3D, and Tanks and Temples dataset), we find zero-shot extending `T` to `25` to fit all input and target views in one forward is better. Also, the V split uses the original image resolutions: we therefore set `--T 25 --L_short 576`.
+
+For example, you can run the following command on the example `dl3d140-165f5af8bfe32f70595a1c9393a6e442acf7af019998275144f605b89a306557` with 1 input view:
+
+```bash
+python demo.py \
+    --data_path /path/to/assets_demo_cli/ \
+    --data_items dl3d140-165f5af8bfe32f70595a1c9393a6e442acf7af019998275144f605b89a306557 \
+    --num_inputs 1 \
+    --chunk_strategy nearest-gt \
+    --video_save_fps 10
+```
 
 ## `img2vid`
 
