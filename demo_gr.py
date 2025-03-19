@@ -852,7 +852,8 @@ def main(server_port: int | None = None, share: bool = True):
                 with gr.Row():
                     with gr.Column():
                         with gr.Group():
-                            preprocess_btn = gr.Button("Preprocess images")
+                            # Initially disable the Preprocess Images button until an image is selected.
+                            preprocess_btn = gr.Button("Preprocess images", interactive=False)
                             preprocess_progress = gr.Textbox(
                                 label="",
                                 visible=False,
@@ -875,6 +876,12 @@ def main(server_port: int | None = None, share: bool = True):
                                 render=False,
                             )
                             preprocessed = gr.State()
+                            # Enable the Preprocess Images button only if an image is selected.
+                            input_imgs.change(
+                                lambda img: gr.update(interactive=bool(img)),
+                                inputs=input_imgs,
+                                outputs=preprocess_btn,
+                            )
                             preprocess_btn.click(
                                 lambda r, *args: [
                                     *r.preprocess(*args),
@@ -1051,7 +1058,8 @@ def main(server_port: int | None = None, share: bool = True):
                 with gr.Row():
                     with gr.Column():
                         with gr.Group():
-                            preprocess_btn = gr.Button("Preprocess images")
+                            # Initially disable the Preprocess Images button until images are selected.
+                            preprocess_btn = gr.Button("Preprocess images", interactive=False)
                             preprocess_progress = gr.Textbox(
                                 label="",
                                 visible=False,
@@ -1112,6 +1120,7 @@ def main(server_port: int | None = None, share: bool = True):
                                     gr.update(visible=False),
                                     gr.update(visible=False),
                                     gr.update(visible=True),
+                                    gr.update(interactive=bool(x))
                                 ),
                                 inputs=[example_imgs_expander],
                                 outputs=[
@@ -1120,6 +1129,7 @@ def main(server_port: int | None = None, share: bool = True):
                                     example_imgs_confirmer,
                                     example_imgs_backer,
                                     example_imgs,
+                                    preprocess_btn
                                 ],
                             )
                             example_imgs_backer.click(

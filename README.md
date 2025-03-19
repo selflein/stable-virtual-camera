@@ -15,6 +15,12 @@
 
 # :wrench: Installation
 
+Clone the repository:
+
+```bash
+git clone --recursive https://github.com/Stability-AI/stable-virtual-camera
+```
+
 To setup the virtual environment and install all necessary model dependencies, simply run:
 
 ```bash
