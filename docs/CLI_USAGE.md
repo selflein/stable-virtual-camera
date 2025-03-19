@@ -8,7 +8,7 @@ python demo.py --data_path <data_path> [additional arguments]
 
 We discuss here first some key attributes:
 
-- `Procedural Two-Pass Sampling`: We recomend enabling procedural sampling by setting `--use_traj_prior True --chunk_strategy <chunk_strategy>` with `<chunk_strategy>` set according to the type of the task.
+- `Procedural Two-Pass Sampling`: We recommend enabling procedural sampling by setting `--use_traj_prior True --chunk_strategy <chunk_strategy>` with `<chunk_strategy>` set according to the type of the task.
 - `Resolution and Aspect-Ratio`: Default image preprocessing include center cropping. All input and output are square images of size $576\times 576$. To overwrite, the code support to pass in `--W <W> --H <H>` directly. We recommend passing in `--L_short 576` such that the aspect-ratio of original image is kept while the shortest side will be resized to $576$.
 
 ## Task
