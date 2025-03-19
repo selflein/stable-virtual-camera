@@ -15,6 +15,8 @@
 
 # :wrench: Installation
 
+## Windows Users: Please use WSL as flash attention isn't supported on native Windows yet: https://github.com/pytorch/pytorch/issues/108175
+
 Clone the repository:
 
 ```bash
