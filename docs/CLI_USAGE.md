@@ -55,7 +55,7 @@ We provide <a href="https://github.com/Stability-AI/stable-virtual-camera/releas
 
 ### Recommended Usage
 
-- `img2img` and `img2vid` are recommended to be used for evaluation and benchmarking. These two tasks are used for the quantitative evalution throught the <a href="https://stable-virtual-camera.github.io/pdf/paper.pdf">paper</a>. The data is converted from academic datasets so the groundtruth target views are available for metric computation. Check the [`benchmark`](../benchmark/) folder for detailed splits we organize to benchmark different NVS models.
+- `img2img` and `img2vid` are recommended to be used for evaluation and benchmarking. These two tasks are used for the quantitative evalution throught the <a href="http://arxiv.org/abs/2503.14489">paper</a>. The data is converted from academic datasets so the groundtruth target views are available for metric computation. Check the [`benchmark`](../benchmark/) folder for detailed splits we organize to benchmark different NVS models.
 - `img2vid` requries both the input and target views to be sorted, which is usually not guaranteed in general usage.
 - `img2trajvid_s-prob` is for general usage but only for single-view regime and fixed preset camera control.
 - `img2trajvid` is the task designed for general usage since it does not need the ordering of the input views. This is the task used in the gradio demo.
