@@ -15,21 +15,14 @@
 
 # :wrench: Installation
 
-## Windows Users: Please use WSL as flash attention isn't supported on native Windows yet: https://github.com/pytorch/pytorch/issues/108175
-
-Clone the repository:
-
 ```bash
 git clone --recursive https://github.com/Stability-AI/stable-virtual-camera
-```
-
-To setup the virtual environment and install all necessary model dependencies, simply run:
-
-```bash
+cd stable-virtual-camera
 pip install -e .
 ```
 
 Check [INSTALL.md](docs/INSTALL.md) for other dependencies if you want to use our demos or develop from this repo.
+For windows users, please use WSL as flash attention isn't supported on native Windows [yet](https://github.com/pytorch/pytorch/issues/108175).
 
 # :open_book: Usage
 
