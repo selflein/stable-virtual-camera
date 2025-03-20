@@ -86,8 +86,7 @@ For example, you can run the following command on the example `dl3d140-165f5af8b
 python demo.py \
     --data_path /path/to/assets_demo_cli/ \
     --data_items dl3d140-165f5af8bfe32f70595a1c9393a6e442acf7af019998275144f605b89a306557 \
-    --num_inputs 1 \
-    --chunk_strategy nearest-gt \
+    --num_inputs 3 \
     --video_save_fps 10
 ```
 
