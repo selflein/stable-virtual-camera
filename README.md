@@ -1,4 +1,5 @@
-# Stable Virtual Camera
+<div align="center">
+<h1>Stable Virtual Camera: Generative View Synthesis with Diffusion Models</h1>
 
 <a href="https://stable-virtual-camera.github.io"><img src="https://img.shields.io/badge/%F0%9F%8F%A0%20Project%20Page-gray.svg"></a>
 <a href="http://arxiv.org/abs/2503.14489"><img src="https://img.shields.io/badge/%F0%9F%93%84%20arXiv-2503.14489-B31B1B.svg"></a>
@@ -6,6 +7,13 @@
 <a href="https://huggingface.co/stabilityai/stable-virtual-camera"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Model_Card-Huggingface-orange"></a>
 <a href="https://huggingface.co/spaces/stabilityai/stable-virtual-camera"><img src="https://img.shields.io/badge/%F0%9F%9A%80%20Gradio%20Demo-Huggingface-orange"></a>
 <a href="https://www.youtube.com/channel/UCLLlVDcS7nNenT_zzO3OPxQ"><img src="https://img.shields.io/badge/%F0%9F%8E%AC%20Video-YouTube-orange"></a>
+
+[Jensen (Jinghao) Zhou](https://shallowtoil.github.io/)\*, [Hang Gao](https://hangg7.com/)\*
+[Vikram Voleti](https://voletiv.github.io/), [Aaryaman Vasishta](https://www.aaryaman.net/), [Chun-Han Yao](https://chhankyao.github.io/), [Mark Boss](https://markboss.me/)
+[Philip Torr](https://eng.ox.ac.uk/people/philip-torr/), [Christian Rupprecht](https://chrirupp.github.io/), [Varun Jampani](https://varunjampani.github.io/)
+</div>
+
+# Overview
 
 `Stable Virtual Camera (Seva)` is a 1.3B generalist diffusion model for Novel View Synthesis (NVS), generating 3D consistent novel views of a scene, given any number of input views and target cameras.
 
