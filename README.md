@@ -15,23 +15,27 @@
 
 # :wrench: Installation
 
-## Windows Users: Please use WSL as flash attention isn't supported on native Windows yet: https://github.com/pytorch/pytorch/issues/108175
-
-Clone the repository:
-
 ```bash
 git clone --recursive https://github.com/Stability-AI/stable-virtual-camera
-```
-
-To setup the virtual environment and install all necessary model dependencies, simply run:
-
-```bash
+cd stable-virtual-camera
 pip install -e .
 ```
 
+Please note that you will need `python>=3.10` and `torch>=2.6.0`.
+
 Check [INSTALL.md](docs/INSTALL.md) for other dependencies if you want to use our demos or develop from this repo.
+For windows users, please use WSL as flash attention isn't supported on native Windows [yet](https://github.com/pytorch/pytorch/issues/108175).
 
 # :open_book: Usage
+
+You need to properly authenticate with Hugging Face to download our model weights. Once set up, our code will handle it automatically at your first run. You can authenticate by running
+
+```bash
+# This will prompt you to enter your Hugging Face credentials.
+huggingface-cli login
+```
+
+Once authenticated, go to our model card [here](https://huggingface.co/stabilityai/stable-virtual-camera) and enter your information for access.
 
 We provide two demos for you to interact with `Stable Virtual Camera`.
 
