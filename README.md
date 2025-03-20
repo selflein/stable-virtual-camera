@@ -21,6 +21,8 @@ cd stable-virtual-camera
 pip install -e .
 ```
 
+Please note that you will need `python>=3.10` and `torch>=2.6.0`.
+
 Check [INSTALL.md](docs/INSTALL.md) for other dependencies if you want to use our demos or develop from this repo.
 For windows users, please use WSL as flash attention isn't supported on native Windows [yet](https://github.com/pytorch/pytorch/issues/108175).
 
