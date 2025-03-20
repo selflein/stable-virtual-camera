@@ -53,7 +53,7 @@ We provide <a href="https://github.com/Stability-AI/stable-virtual-camera/releas
 └── scene_3
 ```
 
-You can specify which scene to run by passing in `--data_items scene_1 scene_2` to run, for example, `scene_1` and `scene_2`.
+You can specify which scene to run by passing in `--data_items scene_1,scene_2` to run, for example, `scene_1` and `scene_2`.
 
 ### Recommended Usage
 
@@ -80,7 +80,7 @@ python demo.py \
 - For the evaluation in semi-dense-view regime (i.e., DL3DV-140 and Tanks and Temples dataset) with `32` input views, we zero-shot extend `T` to fit all input and target views in one forward. Specifically, we set `--T 90` for the DL3DV-140 dataset and `--T 80` for the Tanks and Temples dataset.
 - For the evaluation on ViewCrafter split (including the RealEastate10K, CO3D, and Tanks and Temples dataset), we find zero-shot extending `T` to `25` to fit all input and target views in one forward is better. Also, the V split uses the original image resolutions: we therefore set `--T 25 --L_short 576`.
 
-For example, you can run the following command on the example `dl3d140-165f5af8bfe32f70595a1c9393a6e442acf7af019998275144f605b89a306557` with 3 input view:
+For example, you can run the following command on the example `dl3d140-165f5af8bfe32f70595a1c9393a6e442acf7af019998275144f605b89a306557` with 3 input views:
 
 ```bash
 python demo.py \
