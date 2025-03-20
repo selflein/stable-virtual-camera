@@ -28,6 +28,15 @@ For windows users, please use WSL as flash attention isn't supported on native W
 
 # :open_book: Usage
 
+You need to properly authenticate with Hugging Face to download our model weights. Once set up, our code will handle it automatically at your first run. You can authenticate by running
+
+```bash
+# This will prompt you to enter your Hugging Face credentials.
+huggingface-cli login
+```
+
+Once authenticated, go to our model card [here](https://huggingface.co/stabilityai/stable-virtual-camera) and enter your information for access.
+
 We provide two demos for you to interative with `Stable Virtual Camera`.
 
 ### :rocket: Gradio demo
