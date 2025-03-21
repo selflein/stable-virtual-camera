@@ -36,11 +36,20 @@ For windows users, please use WSL as flash attention isn't supported on native W
 
 # :open_book: Usage
 
-We provide two demos for you to interative with `Stable Virtual Camera`.
+You need to properly authenticate with Hugging Face to download our model weights. Once set up, our code will handle it automatically at your first run. You can authenticate by running
+
+```bash
+# This will prompt you to enter your Hugging Face credentials.
+huggingface-cli login
+```
+
+Once authenticated, go to our model card [here](https://huggingface.co/stabilityai/stable-virtual-camera) and enter your information for access.
+
+We provide two demos for you to interact with `Stable Virtual Camera`.
 
 ### :rocket: Gradio demo
 
-This gradio demo is a GUI interface that requires no expertised knowledge, suitable for general users. Simply run
+This gradio demo is a GUI interface that requires no expert knowledge, suitable for general users. Simply run
 
 ```bash
 python demo_gr.py
@@ -50,7 +59,7 @@ For a more detailed guide, follow [GR_USAGE.md](docs/GR_USAGE.md).
 
 ### :computer: CLI demo
 
-This cli demo allows you to pass in more options and control the model in a fine-grained way, suitable for power users and academic researchers. An examplar command line looks as simple as
+This cli demo allows you to pass in more options and control the model in a fine-grained way, suitable for power users and academic researchers. An example command line looks as simple as
 
 ```bash
 python demo.py --data_path <data_path> [additional arguments]
