@@ -9,9 +9,9 @@
 <a href="https://www.youtube.com/channel/UCLLlVDcS7nNenT_zzO3OPxQ"><img src="https://img.shields.io/badge/%F0%9F%8E%AC%20Video-YouTube-orange"></a>
 
 [Jensen (Jinghao) Zhou](https://shallowtoil.github.io/)\*, [Hang Gao](https://hangg7.com/)\*
-
+<br>
 [Vikram Voleti](https://voletiv.github.io/), [Aaryaman Vasishta](https://www.aaryaman.net/), [Chun-Han Yao](https://chhankyao.github.io/), [Mark Boss](https://markboss.me/)
-
+<br>
 [Philip Torr](https://eng.ox.ac.uk/people/philip-torr/), [Christian Rupprecht](https://chrirupp.github.io/), [Varun Jampani](https://varunjampani.github.io/)
 </div>
 
