@@ -1147,6 +1147,12 @@ def main(server_port: int | None = None, share: bool = True):
                                 ],
                             )
                             preprocessed = gr.State()
+                            # Enable the Preprocess Images button when images are uploaded
+                            input_imgs.change(
+                                lambda imgs: gr.update(interactive=bool(imgs)),
+                                inputs=[input_imgs],
+                                outputs=[preprocess_btn],
+                            )
                             preprocess_btn.click(
                                 lambda r, *args: r.preprocess(*args),
                                 inputs=[renderer, input_imgs],
