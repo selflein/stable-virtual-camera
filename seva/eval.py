@@ -1213,14 +1213,11 @@ def get_value_dict(
     )
     w2c[:, :3, 3] *= translation_scaling_factor
     c2w[:, :3, 3] *= translation_scaling_factor
-    value_dict["plucker_coordinate"], _ = get_plucker_coordinates(
+    value_dict["plucker_coordinate"] = get_plucker_coordinates(
         extrinsics_src=w2c[0],
         extrinsics=w2c,
         intrinsics=curr_Ks.float().clone(),
-        mode="plucker",
-        rel_zero_translation=True,
         target_size=(H // F, W // F),
-        return_grid_cam=True,
     )
 
     value_dict["c2w"] = c2w

@@ -99,9 +99,7 @@ def cam2world(X, pose):
     return X_hom @ pose_inv.transpose(-1, -2)
 
 
-def get_center_and_ray(
-    img_h, img_w, pose, intr, zero_center_for_debugging=False
-):  # [HW,2]
+def get_center_and_ray(img_h, img_w, pose, intr):  # [HW,2]
     # given the intrinsic/extrinsic matrices, get the camera center and ray directions]
     # assert(opt.camera.model=="perspective")
 
@@ -115,7 +113,7 @@ def get_center_and_ray(
     center_3D = cam2world(center_3D_cam, pose)  # [B,HW,3]
     ray = grid_3D - center_3D  # [B,HW,3]
 
-    return center_3D_cam if zero_center_for_debugging else center_3D, ray, grid_3D_cam
+    return center_3D, ray, grid_3D_cam
 
 
 def get_plucker_coordinates(
@@ -123,11 +121,7 @@ def get_plucker_coordinates(
     extrinsics,
     intrinsics=None,
     fov_rad=DEFAULT_FOV_RAD,
-    mode="plucker",
-    rel_zero_translation=True,
-    zero_center_for_debugging=False,
-    target_size=[72, 72],  # 576-size image
-    return_grid_cam=False,  # save for later use if want restore
+    target_size=[72, 72],
 ):
     if intrinsics is None:
         intrinsics = get_default_intrinsics(fov_rad).to(extrinsics.device)
@@ -150,8 +144,6 @@ def get_plucker_coordinates(
         ), "Intrinsics should be expressed in resolution-independent normalized image coordinates."
 
     c2w_src = torch.linalg.inv(extrinsics_src)
-    if not rel_zero_translation:
-        c2w_src[:3, 3] = c2w_src[3, :3] = 0.0
     # transform coordinates from the source camera's coordinate system to the coordinate system of the respective camera
     extrinsics_rel = torch.einsum(
         "vnm,vmp->vnp", extrinsics, c2w_src[None].repeat(extrinsics.shape[0], 1, 1)
@@ -168,18 +160,11 @@ def get_plucker_coordinates(
         img_w=target_size[1],
         pose=extrinsics_rel[:, :3, :],
         intr=intrinsics,
-        zero_center_for_debugging=zero_center_for_debugging,
     )
 
-    if mode == "plucker" or "v1" in mode:
-        rays = torch.nn.functional.normalize(rays, dim=-1)
-        plucker = torch.cat((rays, torch.cross(centers, rays, dim=-1)), dim=-1)
-    else:
-        raise ValueError(f"Unknown Plucker coordinate mode: {mode}")
-
+    rays = torch.nn.functional.normalize(rays, dim=-1)
+    plucker = torch.cat((rays, torch.cross(centers, rays, dim=-1)), dim=-1)
     plucker = plucker.permute(0, 2, 1).reshape(plucker.shape[0], -1, *target_size)
-    if return_grid_cam:
-        return plucker, grid_cam.reshape(-1, *target_size, 3)
     return plucker
 
 
