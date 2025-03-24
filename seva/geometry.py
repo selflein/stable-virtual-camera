@@ -126,9 +126,6 @@ def get_plucker_coordinates(
     if intrinsics is None:
         intrinsics = get_default_intrinsics(fov_rad).to(extrinsics.device)
     else:
-        # for some data preprocessed in the early stage (e.g., MVI and CO3D),
-        # intrinsics are expressed in raw pixel space (e.g., 576x576) instead
-        # of normalized image coordinates
         if not (
             torch.all(intrinsics[:, :2, -1] >= 0)
             and torch.all(intrinsics[:, :2, -1] <= 1)

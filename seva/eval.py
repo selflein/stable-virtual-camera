@@ -524,19 +524,6 @@ def chunk_input_and_test(
             list(range(M)) == gt_input_inds
         ), "All input_c2ws should be gt when `gt` chunking strategy is used."
 
-        # LEGACY CHUNKING STRATEGY
-        # num_test_per_chunk = T - len(gt_input_inds)
-        # test_inds_per_chunk = [i for i in range(T) if i not in gt_input_inds]
-        # for i in range(0, test_c2ws.shape[0], num_test_per_chunk):
-        #     chunk = ["NULL"] * T
-        #     for j, k in enumerate(gt_input_inds):
-        #         chunk[k] = f"!{j:03d}"
-        #     for j, k in enumerate(
-        #         test_inds_per_chunk[: test_c2ws[i : i + num_test_per_chunk].shape[0]]
-        #     ):
-        #         chunk[k] = f">{i + j:03d}"
-        #     chunks.append(chunk)
-
         num_test_seen = 0
         while num_test_seen < N:
             chunk = [f"!{i:03d}" for i in gt_input_inds]
