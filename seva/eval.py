@@ -770,8 +770,8 @@ def chunk_input_and_test(
             np.repeat(input_ords_, N, axis=1) > np.repeat(test_ords, M + 1, axis=0),
         )  # (M, N)
         assert (in_stop_ranges.sum(1) <= T - 2).all(), (
-            "More input frames need to be sampled during the first pass to ensure "
-            f"#test frames during each forard in the second pass will not exceed {T - 2}."
+            "More anchor frames need to be sampled during the first pass to ensure "
+            f"#target frames during each forward in the second pass will not exceed {T - 2}."
         )
         if input_ords[1, 0] <= test_ords[0, 0]:
             assert not in_stop_ranges[0].any()
