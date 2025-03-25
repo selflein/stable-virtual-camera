@@ -17,11 +17,17 @@
 [Stability AI](https://stability.ai/), [University of Oxford](https://www.robots.ox.ac.uk/~vgg/), [University of California, Berkeley](https://bair.berkeley.edu/)
 </div>
 
-![Teaser](assets/spiral.gif)
+<p align="center">
+  <video width="80%" poster="assets/spiral.jpg" style="border-radius:10px;">
+    <source src="assets/spiral.mp4" type="video/mp4">
+  </video>
+</p>
 
 <p align="center" border-radius="10px">
-  <img src="assets/benchmark.jpg" width="90%" alt="teaser_page1"/>
+  <img src="assets/benchmark.jpg" width="80%" alt="teaser_page1"/>
 </p>
+
+# Overview
 
 `Stable Virtual Camera (Seva)` is a 1.3B generalist diffusion model for Novel View Synthesis (NVS), generating 3D consistent novel views of a scene, given any number of input views and target cameras.
 
