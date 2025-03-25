@@ -75,8 +75,8 @@ For users interested in benchmarking NVS models using command lines, check [`ben
 
 # :question: Q&A
 
-- Training script? https://github.com/Stability-AI/stable-virtual-camera/issues/27.
-- License for the output. https://github.com/Stability-AI/stable-virtual-camera/issues/26. The output follows the same non-commercial license.
+- Training script? See issue https://github.com/Stability-AI/stable-virtual-camera/issues/27.
+- License for the output? See issue https://github.com/Stability-AI/stable-virtual-camera/issues/26. The output follows the same non-commercial license.
 
 # :books: Citing
 
