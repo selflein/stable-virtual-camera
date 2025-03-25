@@ -73,6 +73,11 @@ For a more detailed guide, follow [CLI_USAGE.md](docs/CLI_USAGE.md).
 
 For users interested in benchmarking NVS models using command lines, check [`benchmark`](benchmark/) containing the details about scenes, splits, and input/target views we reported in the <a href="http://arxiv.org/abs/2503.14489">paper</a>.
 
+# :question: Q&A
+
+- Training script? https://github.com/Stability-AI/stable-virtual-camera/issues/27.
+- License for the output. https://github.com/Stability-AI/stable-virtual-camera/issues/26. The output follows the same non-commercial license.
+
 # :books: Citing
 
 If you find this repository useful, please consider giving a star :star: and citation.
