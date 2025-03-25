@@ -18,9 +18,7 @@
 </div>
 
 <p align="center">
-  <video width="80%" poster="assets/spiral.jpg" style="border-radius:10px;">
-    <source src="assets/spiral.mp4" type="video/mp4">
-  </video>
+  <img src="assets/spiral.gif" width="80%" alt="Teaser" style="border-radius:10px;"/>
 </p>
 
 <p align="center" border-radius="10px">
