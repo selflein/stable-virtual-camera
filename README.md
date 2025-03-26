@@ -13,8 +13,8 @@
 [Vikram Voleti](https://voletiv.github.io/), [Aaryaman Vasishta](https://www.aaryaman.net/), [Chun-Han Yao](https://chhankyao.github.io/), [Mark Boss](https://markboss.me/)
 <br>
 [Philip Torr](https://eng.ox.ac.uk/people/philip-torr/), [Christian Rupprecht](https://chrirupp.github.io/), [Varun Jampani](https://varunjampani.github.io/)
-<br><br>
-[Stability AI](https://stability.ai/), [University of Oxford](https://www.robots.ox.ac.uk/~vgg/), [UC Berkeley](https://bair.berkeley.edu/)
+<br>
+<sub>[Stability AI](https://stability.ai/), [University of Oxford](https://www.robots.ox.ac.uk/~vgg/), [UC Berkeley](https://bair.berkeley.edu/)</sub>
 </div>
 
 <p align="center">
@@ -22,7 +22,7 @@
 </p>
 
 <p align="center" border-radius="10px">
-  <img src="assets/benchmark.jpg" width="80%" alt="teaser_page1"/>
+  <img src="assets/benchmark.png" width="80%" alt="teaser_page1"/>
 </p>
 
 # Overview
