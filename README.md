@@ -18,11 +18,11 @@
 </div>
 
 <p align="center">
-  <img src="assets/spiral.gif" width="80%" alt="Teaser" style="border-radius:10px;"/>
+  <img src="assets/spiral.gif" width="100%" alt="Teaser" style="border-radius:10px;"/>
 </p>
 
 <p align="center" border-radius="10px">
-  <img src="assets/benchmark.png" width="80%" alt="teaser_page1"/>
+  <img src="assets/benchmark.png" width="100%" alt="teaser_page1"/>
 </p>
 
 # Overview
