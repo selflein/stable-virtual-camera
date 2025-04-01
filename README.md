@@ -96,7 +96,7 @@ If you find this repository useful, please consider giving a star :star: and cit
     author={Jensen (Jinghao) Zhou and Hang Gao and Vikram Voleti and Aaryaman Vasishta and Chun-Han Yao and Mark Boss and
     Philip Torr and Christian Rupprecht and Varun Jampani
     },
-    journal={arXiv preprint},
+    journal={arXiv preprint arXiv:2503.14489},
     year={2025}
 }
 ```
