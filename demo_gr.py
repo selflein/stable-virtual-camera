@@ -129,7 +129,7 @@ if COMPILE:
 
 
 class SevaRenderer(object):
-    def __init__(self, server: viser.ViserServer):
+    def __init__(self, server: viser.ViserServer | None = None):
         self.server = server
         self.gui_state = None
 
@@ -918,6 +918,7 @@ def main(server_port: int | None = None, share: bool = True):
                                     "move-down",
                                     "move-left",
                                     "move-right",
+                                    "hemisphere",
                                 ],
                                 label="Preset trajectory",
                                 value="orbit",

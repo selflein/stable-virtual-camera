@@ -1348,7 +1348,6 @@ def run_one_scene(
         version_dict["f"],
         version_dict["options"],
     )
-
     if isinstance(image_cond, str):
         image_cond = {"img": [image_cond]}
     imgs_clip, imgs, img_size = [], [], None

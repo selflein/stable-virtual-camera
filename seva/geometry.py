@@ -206,6 +206,7 @@ def get_preset_pose_fov(
         "move-left",
         "move-right",
         "roll",
+        "hemisphere",
     ],
     num_frames: int,
     start_w2c: torch.Tensor,
@@ -224,6 +225,21 @@ def get_preset_pose_fov(
                 up_direction,
                 num_frames=num_frames,
                 endpoint=False,
+                ref_radius_scale=2.0,
+                ref_up_shift=0.2,
+            )
+        ).numpy()
+        fovs = np.full((num_frames,), fov)
+    elif option == "hemisphere":
+        poses = torch.linalg.inv(
+            get_spiral_horizontal_w2cs(
+                start_w2c,
+                look_at,
+                up_direction,
+                num_frames=num_frames,
+                truncate_traj_ratio=0.8,
+                ref_radius_scale=2.0,
+                degree=360 * 3,
             )
         ).numpy()
         fovs = np.full((num_frames,), fov)
@@ -418,6 +434,137 @@ def get_arc_horizontal_w2cs(
         + lookat
     )
     return get_lookat_w2cs(positions, lookat, up, face_off=face_off)
+
+def generate_spiral_constant_distance(
+    radius: float,
+    num_turns: int,
+    num_points: int,
+    target_delta_s: float = 1.5,
+    dense_factor: int = 100
+) -> np.ndarray:
+    """
+    Generates points for a spiral trajectory on a sphere from the equator
+    to the North Pole, attempting to maintain a constant arc length distance
+    (target_delta_s) between consecutive points using piecewise linear
+    approximation of the arc length.
+
+    Args:
+        radius: The radius of the sphere.
+        num_turns: The total number of full rotations the spiral makes.
+        target_delta_s: The desired constant distance step along the spiral path.
+        dense_factor: Multiplier for initial dense sampling. Higher values give
+                      better accuracy but increase computation time.
+
+    Returns:
+        A numpy array where each row is a sampled point [x, y, z] on the
+        spiral path. Includes the starting point. The final point may not
+        reach the pole exactly. Returns None if target_delta_s is non-positive.
+    """
+    if target_delta_s <= 0:
+        print("Error: target_delta_s must be positive.")
+        return None
+
+    # 1. Generate a dense preliminary spiral using a simple parameterization
+    # Estimate number of points needed for dense sampling based on target step
+    estimated_total_length = radius * np.sqrt((np.pi/2)**2 + (num_turns * 2 * np.pi)**2) # Rough estimate
+    num_dense_points = int(estimated_total_length / target_delta_s * dense_factor)
+    if num_dense_points < 100: # Ensure minimum density
+      num_dense_points = 100
+
+    t_dense = np.linspace(0, 1, num_dense_points) # Parameter from 0 to 1
+
+    # Original parameterization (theta varies linearly, phi varies linearly)
+    theta_dense = np.pi/2 * (1 - t_dense) # From pi/2 (equator) to 0 (pole)
+    phi_dense = num_turns * 2 * np.pi * t_dense # From 0 to total angle
+
+    # Convert dense points to Cartesian coordinates
+    x_dense = radius * np.sin(theta_dense) * np.cos(phi_dense)
+    y_dense = radius * np.sin(theta_dense) * np.sin(phi_dense)
+    z_dense = radius * np.cos(theta_dense)
+    dense_points = np.vstack([x_dense, y_dense, z_dense]).T
+
+    # 2. Approximate arc length by summing Euclidean distances along dense path
+    # Calculate vector differences between consecutive dense points
+    diffs = np.diff(dense_points, axis=0)
+    # Calculate Euclidean distances (segment lengths)
+    segment_lengths = np.linalg.norm(diffs, axis=1)
+    # Calculate cumulative arc length at each dense point
+    cumulative_lengths = np.zeros(num_dense_points)
+    cumulative_lengths[1:] = np.cumsum(segment_lengths)
+    total_approx_length = cumulative_lengths[-1]
+
+    if target_delta_s >= total_approx_length:
+        print("Warning: target_delta_s is larger than the estimated total path length.")
+        # Return only start and end points of the dense approximation
+        return dense_points[[0, -1], :]
+
+    # 3. Determine target arc lengths for constant spacing
+    num_final_points = num_points + 1
+    target_lengths = np.linspace(0, total_approx_length, num_final_points)
+    # Ensure target lengths do not exceed calculated total length slightly due to float issues
+    target_lengths = np.clip(target_lengths, 0, total_approx_length)
+
+
+    # 4. Interpolate to find points corresponding to target arc lengths
+    # Use np.interp to find the Cartesian coordinates directly
+    # For each target length, find where it falls within the cumulative_lengths
+    # and linearly interpolate the corresponding x, y, z values from dense_points.
+    final_x = np.interp(target_lengths, cumulative_lengths, x_dense)
+    final_y = np.interp(target_lengths, cumulative_lengths, y_dense)
+    final_z = np.interp(target_lengths, cumulative_lengths, z_dense)
+
+    final_points = np.vstack([final_x, final_y, final_z]).T
+
+    return final_points[:-1]
+
+def get_spiral_horizontal_w2cs(
+    ref_w2c: torch.Tensor,
+    lookat: torch.Tensor,
+    up: torch.Tensor | None,
+    num_frames: int,
+    face_off: bool = False,
+    degree: float = 360.0,
+    ref_radius_scale: float = 1.5,
+    truncate_traj_ratio: float = 0.8,
+    **_,
+) -> torch.Tensor:
+    """Generate a spiral trajectory on a sphere from the equator to the North Pole with constant arc length.
+
+    Args:
+        ref_w2c: (4, 4) tensor of the reference wolrd-to-camera matrix
+        lookat: (3,) tensor of lookat point
+        up: (3,) or (N, 3) tensor of up vector
+        num_frames: int of the number of frames in the trajectory
+        truncate_traj_ratio: Stop the spiral earlier before reaching the pole.
+    """
+
+    ref_c2w = torch.linalg.inv(ref_w2c)
+    ref_position = ref_c2w[:3, 3]
+    if up is None:
+        up = -ref_c2w[:3, 1]
+    assert up is not None
+
+    radius = torch.linalg.norm(lookat - ref_position)
+
+    num_points = int(num_frames / truncate_traj_ratio) + 1
+
+    position = generate_spiral_constant_distance(radius, num_turns=degree / 360, num_points=num_points)
+    position = position[:num_frames]
+
+    position = torch.from_numpy(position).to(ref_w2c.device)
+    # Move to origin and convert to OpenCV camera coordinate system
+    position = torch.stack((position[:, 1], -position[:, 2], -position[:, 0] + radius), dim=-1)
+
+    # Transform to world space
+    position = torch.einsum(
+        "ij,nj->ni", ref_c2w[:3], F.pad(position, (0, 1), value=1.0)
+    )
+
+    position -= lookat
+    position *= ref_radius_scale
+    position += lookat
+
+    return get_lookat_w2cs(position, lookat, up, face_off=face_off)
 
 
 def get_lemniscate_w2cs(

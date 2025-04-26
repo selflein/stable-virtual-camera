@@ -533,6 +533,7 @@ def define_gui(
                 "lemniscate",
                 "zoom-out",
                 "dolly zoom-out",
+                "hemisphere",
             ],
             initial_value="orbit",
             hint="Select a preset camera trajectory.",
